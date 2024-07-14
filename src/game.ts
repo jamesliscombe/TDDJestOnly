@@ -1,13 +1,6 @@
-
-
-
-
-
-
- 
 const welcomeUser = () => {
-    const helloPrompt = prompt('what is your name?');
-    return(`Hello ${helloPrompt}`)
-}
+  const helloPrompt = prompt('what is your name?');
+  return `Hello ${helloPrompt}`;
+};
 
-export { welcomeUser}
+export {welcomeUser};

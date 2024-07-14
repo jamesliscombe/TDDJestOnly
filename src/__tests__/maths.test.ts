@@ -1,4 +1,10 @@
-import { addNumbers, subtractNumbers, multiplyNumbers, divideNumbers, findSquareRoot } from '../maths';
+import {
+  addNumbers,
+  subtractNumbers,
+  multiplyNumbers,
+  divideNumbers,
+  findSquareRoot,
+} from '../maths';
 
 describe('Integration Tests', () => {
   it('should add two numbers correctly', () => {

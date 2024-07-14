@@ -8,4 +8,10 @@ const divideNumbers = (a: number, b: number): number => a / b;
 
 const findSquareRoot = (a: number): number => Math.sqrt(a);
 
-export { addNumbers, subtractNumbers, multiplyNumbers, divideNumbers, findSquareRoot };
+export {
+  addNumbers,
+  subtractNumbers,
+  multiplyNumbers,
+  divideNumbers,
+  findSquareRoot,
+};
