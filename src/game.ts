@@ -1,3 +1,6 @@
+import * as readline from 'node:readline';
+import {stdin as input, stdout as output} from 'process';
+
 class Game {
   private static instance: Game;
   private userName: string | null = '';
@@ -16,9 +19,15 @@ class Game {
       return `Hello ${this.userName}, welcome back`;
     }
 
-    this.userName = prompt('Please enter your name');
+    const rl = readline.createInterface({input, output});
 
-    return `Hello ${this.userName}`;
+    rl.question('Please enter your name: ', answer => {
+      this.userName = answer;
+      console.log(`Hello ${this.userName}`);
+      rl.close();
+    });
+
+    return 'awaiting user input...';
   }
 
   public getUserName(): string | null {

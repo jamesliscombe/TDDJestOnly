@@ -2,7 +2,7 @@
   "name": "jest-test",
   "version": "1.0.0",
   "description": "",
-  "main": "game.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
@@ -20,11 +20,14 @@
   "license": "ISC",
   "dependencies": {
     "husky": "^9.0.11",
+    "nodemon": "^3.1.4",
+    "prompt-sync": "^4.2.0",
     "typescript": "^5.5.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "20.12.7",
+    "@types/prompt-sync": "^4.2.3",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.6.0",
     "gts": "^5.3.1",
