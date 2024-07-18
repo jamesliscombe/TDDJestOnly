@@ -1,9 +1,7 @@
-import * as readline from 'node:readline';
-import {stdin as input, stdout as output} from 'process';
-
+import {userInput} from './utils/userinput';
 class Game {
   private static instance: Game;
-  private userName: string | null = '';
+  private userName: string | null = null;
 
   private constructor() {}
 
@@ -14,27 +12,21 @@ class Game {
     return Game.instance;
   }
 
-  public welcomeUser(): string {
+  public async welcomeUser() {
     if (this.userName) {
       return `Hello ${this.userName}, welcome back`;
     }
 
-    const rl = readline.createInterface({input, output});
+    this.userName = await userInput('Please enter your name: ');
 
-    rl.question('Please enter your name: ', answer => {
-      this.userName = answer;
-      console.log(`Hello ${this.userName}`);
-      rl.close();
-    });
-
-    return 'awaiting user input...';
+    return `Hello ${this.userName}`;
   }
 
   public getUserName(): string | null {
     return this.userName;
   }
 
-  public setUserName(name: string): void {
+  public setUserName(name: string | null): void {
     this.userName = name;
   }
 }

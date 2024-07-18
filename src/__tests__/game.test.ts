@@ -1,9 +1,7 @@
-import * as readline from 'node:readline';
+import * as userInput from '../utils/userinput';
 import {Game} from '../game';
 
-jest.mock('node:readline', () => ({
-  createInterface: jest.fn(),
-}));
+jest.mock('../utils/userinput');
 
 describe('Game', () => {
   let originalPrompt: typeof global.prompt;
@@ -23,39 +21,24 @@ describe('Game', () => {
 
   beforeEach(() => {
     game = Game.getInstance();
+    game.setUserName(null);
   });
 
-  it('should log the users name entered in the welcome prompt', () => {
-    const mockQuestion = jest
-      .fn()
-      .mockImplementation((questionText, callback) => {
-        callback('James Liscombe');
-      });
+  it('should log the users name entered in the welcome prompt', async () => {
+    const mockUserInput = jest.fn().mockResolvedValue('James Liscombe');
+    (userInput.userInput as jest.Mock) = mockUserInput;
 
-    const mockClose = jest.fn();
+    const result = await game.welcomeUser();
 
-    (readline.createInterface as jest.Mock).mockReturnValue({
-      question: mockQuestion,
-      close: mockClose,
-    });
-
-    const consoleSpy = jest.spyOn(console, 'log');
-
-    const result = game.welcomeUser();
-
-    expect(result).toBe('awaiting user input...');
-    expect(mockQuestion).toHaveBeenCalledWith(
-      'Please enter your name: ',
-      expect.any(Function),
-    );
-    expect(consoleSpy).toHaveBeenCalledWith('Hello James Liscombe');
-    expect(mockClose).toHaveBeenCalled();
+    expect(result).toBe('Hello James Liscombe');
+    expect(mockUserInput).toHaveBeenCalledWith('Please enter your name: ');
+    expect(game.getUserName()).toBe('James Liscombe');
   });
 
-  it('should return the users name if it has already been entered', () => {
+  it('should return the users name if it has already been entered', async () => {
     game.setUserName('James Liscombe');
 
-    const result = game.welcomeUser();
+    const result = await game.welcomeUser();
 
     expect(result).toBe('Hello James Liscombe, welcome back');
   });
